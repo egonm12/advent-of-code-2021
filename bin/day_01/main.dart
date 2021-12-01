@@ -32,20 +32,19 @@ Future<void> main() async {
 
   Future<int> getIncreasedCountOfThree() async {
     int increasedValues = 0;
-    final sumOfThree = [];
+    final List<int> collection = [];
 
     for (var i = 0; i < values.length - 2; i++) {
-      final first = values[i];
-      final second = values[i + 1];
-      final third = values[i + 2];
+      final measurements = values.getRange(i, i + 3);
+      final sumOfThree = measurements.fold(0, (int p, int c) => p + c);
 
-      sumOfThree.add(first + second + third);
+      collection.add(sumOfThree);
 
       if (i == 0) continue;
 
-      final length = sumOfThree.length;
+      final collectionLength = collection.length;
 
-      if (sumOfThree[length - 1] > sumOfThree[length - 2]) {
+      if (collection[collectionLength - 1] > collection[collectionLength - 2]) {
         increasedValues++;
       }
     }
@@ -57,5 +56,5 @@ Future<void> main() async {
   final answer2 = await getIncreasedCountOfThree();
 
   print(answer1);
-  print(answer2);
+  print('1362 $answer2');
 }
