@@ -4,6 +4,19 @@ import 'dart:io';
 class Utils {
   Utils._();
 
+  static Future<List<String>> writeDataFromFileAsString(
+      String path, List<String> data) async {
+    await File('${Directory.current.path}/$path')
+        .openRead()
+        .map(utf8.decode)
+        .transform(LineSplitter())
+        .forEach((line) {
+      data.add(line);
+    });
+
+    return data;
+  }
+
   static Future<List<T>> writeDataFromFile<T>(String path, List<T> data) async {
     await File('${Directory.current.path}/$path')
         .openRead()
