@@ -1,22 +1,9 @@
-import 'dart:convert';
-import 'dart:io';
+import '../utils.dart';
 
 Future<void> main() async {
   const path = 'bin/day_01/input.txt';
-  final List<int> values = [];
 
-  Future<void> writeDataFromFile() async {
-    await File('${Directory.current.path}/${path}')
-        .openRead()
-        .map(utf8.decode)
-        .transform(LineSplitter())
-        .forEach((value) {
-      final int? valueAsInt = int.tryParse(value);
-      if (valueAsInt != null) values.add(valueAsInt);
-    });
-  }
-
-  await writeDataFromFile();
+  final List<int> values = await Utils.writeDataFromFile(path, <int>[]);
 
   Future<int> getIncreasedCount() async {
     int increasedValues = 0;
@@ -55,6 +42,6 @@ Future<void> main() async {
   final answer1 = await getIncreasedCount();
   final answer2 = await getIncreasedCountOfThree();
 
-  print(answer1);
+  print('1387 $answer1');
   print('1362 $answer2');
 }
