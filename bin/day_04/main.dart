@@ -204,7 +204,7 @@ bool checkIfWon(List<List<int>> board) {
 
 int sum(List<int> values) => values.fold(0, (int p, c) => p + c);
 
-Future<int> runBingo(List<int> numbers, path) async {
+Future<int> runBingoUntilFirstWin(List<int> numbers, path) async {
   final boards = await getBoards(path);
 
   List<List<int>>? winningBoard;
@@ -222,10 +222,9 @@ Future<int> runBingo(List<int> numbers, path) async {
       final checkRows = checkIfWon(board);
       final checkColumns = checkIfWon(columnsToRows(board));
 
-      if (turn == numbers.length - 1) print(board);
       if (checkRows || checkColumns) {
         won = true;
-        winningBoard = boards[index];
+        winningBoard = board;
         bingoNumber = number;
       }
     }
@@ -240,6 +239,6 @@ Future<int> runBingo(List<int> numbers, path) async {
 }
 
 void main() async {
-  final output = await runBingo(numbers, 'bin/day_04/input.txt');
+  final output = await runBingoUntilFirstWin(numbers, 'bin/day_04/input.txt');
   print(output);
 }

@@ -183,8 +183,13 @@ void main() {
     });
   });
 
-  test('runBingo', () async {
-    final output = await runBingo(numbers, path);
+  test('runBingoUntilFirstWin', () async {
+    final output = await runBingoUntilFirstWin(numbers, path);
     expect(output, 4512);
+  });
+
+  test('runBingoUntilLastWin', () async {
+    final output = await runBingoUntilLastWin(numbers, path);
+    expect(output, 1924);
   });
 }
